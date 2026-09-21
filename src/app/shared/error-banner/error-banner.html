@@ -1,0 +1,11 @@
+@if (errorNotification.current(); as error) {
+  <div class="error-banner" [class.error-banner--forbidden]="error.status === 403" role="alert">
+    <span>Error {{ error.status }}: {{ error.message }}</span>
+    <div class="error-banner__acciones">
+      @if (error.status === 401) {
+        <button type="button" (click)="iniciarSesion()">Iniciar sesión</button>
+      }
+      <button type="button" (click)="dismiss()" aria-label="Cerrar">&times;</button>
+    </div>
+  </div>
+}

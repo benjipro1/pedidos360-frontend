@@ -1,0 +1,81 @@
+<section>
+  <h1>Administración de productos</h1>
+
+  @if (error()) {
+    <p class="mensaje-error">{{ error() }}</p>
+  }
+
+  <form class="producto-form" (ngSubmit)="guardar()">
+    <h2>{{ editandoId() ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+    <label>
+      Nombre
+      <input type="text" name="nombre" [(ngModel)]="form.nombre" required />
+    </label>
+
+    <label>
+      Descripción
+      <input type="text" name="descripcion" [(ngModel)]="form.descripcion" />
+    </label>
+
+    <label>
+      Precio
+      <input type="number" name="precio" min="0" [(ngModel)]="form.precio" required />
+    </label>
+
+    <label>
+      Stock
+      <input type="number" name="stock" min="0" [(ngModel)]="form.stock" required />
+    </label>
+
+    @if (editandoId()) {
+      <label class="producto-form__checkbox">
+        <input type="checkbox" name="activo" [(ngModel)]="form.activo" />
+        Activo (visible en el catálogo)
+      </label>
+    }
+
+    <div class="producto-form__acciones">
+      <button type="submit" [disabled]="guardando()">
+        {{ editandoId() ? 'Guardar cambios' : 'Crear producto' }}
+      </button>
+      @if (editandoId()) {
+        <button type="button" (click)="cancelar()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  @if (cargando()) {
+    <p>Cargando productos...</p>
+  } @else if (productos().length === 0) {
+    <p>No hay productos cargados.</p>
+  } @else {
+    <table class="productos-tabla">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of productos(); track producto.id) {
+          <tr [class.producto-inactivo]="!producto.activo">
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.precio | currency: 'CLP' : 'symbol' : '1.0-0' }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.activo ? 'Activo' : 'Inactivo' }}</td>
+            <td class="productos-tabla__acciones">
+              <button type="button" (click)="editar(producto)">Editar</button>
+              @if (producto.activo) {
+                <button type="button" (click)="darDeBaja(producto)">Dar de baja</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

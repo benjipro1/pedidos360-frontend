@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #1f2937;
+  color: #f9fafb;
+  flex-wrap: wrap;
+}
+
+.navbar__brand a {
+  color: #f9fafb;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.navbar__links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.navbar__links a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.navbar__links a:hover,
+.navbar__links a.is-active {
+  color: #f9fafb;
+  text-decoration: underline;
+}
+
+.navbar__badge {
+  display: inline-block;
+  min-width: 1.1rem;
+  padding: 0 0.3rem;
+  margin-left: 0.3rem;
+  border-radius: 999px;
+  background: #f59e0b;
+  color: #1f2937;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.navbar__account {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar__user {
+  font-size: 0.9rem;
+}
+
+.navbar__user small {
+  color: #9ca3af;
+  margin-left: 0.25rem;
+}
+
+.navbar__account button {
+  background: #374151;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.navbar__account button:hover {
+  background: #4b5563;
+}

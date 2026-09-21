@@ -1,0 +1,54 @@
+<section>
+  <h1>Carrito</h1>
+
+  @if (carrito.items().length === 0) {
+    <p>Tu carrito está vacío. <a routerLink="/catalogo">Ir al catálogo</a>.</p>
+  } @else {
+    <table class="carrito-tabla">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of carrito.items(); track item.producto.id) {
+          <tr>
+            <td>{{ item.producto.nombre }}</td>
+            <td>{{ item.producto.precio | currency: 'CLP' : 'symbol' : '1.0-0' }}</td>
+            <td>
+              <input
+                type="number"
+                min="1"
+                [max]="item.producto.stock"
+                [value]="item.cantidad"
+                (change)="actualizarCantidad(item, $any($event.target).value)"
+              />
+            </td>
+            <td>
+              {{ item.producto.precio * item.cantidad | currency: 'CLP' : 'symbol' : '1.0-0' }}
+            </td>
+            <td>
+              <button type="button" (click)="quitar(item.producto.id)">Quitar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <p class="carrito-total">
+      Total: <strong>{{ carrito.total() | currency: 'CLP' : 'symbol' : '1.0-0' }}</strong>
+    </p>
+
+    @if (error()) {
+      <p class="mensaje-error">{{ error() }}</p>
+    }
+
+    <button type="button" (click)="confirmar()" [disabled]="enviando()">
+      {{ enviando() ? 'Enviando...' : 'Confirmar pedido' }}
+    </button>
+  }
+</section>

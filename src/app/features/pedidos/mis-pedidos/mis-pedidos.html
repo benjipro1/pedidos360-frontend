@@ -1,0 +1,38 @@
+<section>
+  <h1>Mis pedidos</h1>
+
+  @if (cargando()) {
+    <p>Cargando pedidos...</p>
+  } @else if (error()) {
+    <p class="mensaje-error">{{ error() }}</p>
+  } @else if (pedidos().length === 0) {
+    <p>Todavía no tienes pedidos.</p>
+  } @else {
+    <table class="pedidos-tabla">
+      <thead>
+        <tr>
+          <th>N.º</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Productos</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (pedido of pedidos(); track pedido.id) {
+          <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.fechaCreacion | date: 'short' }}</td>
+            <td>
+              <span class="estado estado--{{ pedido.estado }}">
+                {{ pedido.estado | titlecase }}
+              </span>
+            </td>
+            <td>{{ pedido.detalles.length }}</td>
+            <td>{{ pedido.total | currency: 'CLP' : 'symbol' : '1.0-0' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

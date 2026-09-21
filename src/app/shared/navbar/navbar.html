@@ -1,0 +1,36 @@
+<nav class="navbar">
+  <div class="navbar__brand">
+    <a routerLink="/">Pedidos360</a>
+  </div>
+
+  <div class="navbar__links">
+    <a routerLink="/catalogo" routerLinkActive="is-active">Catálogo</a>
+    <a routerLink="/pedidos/crear" routerLinkActive="is-active">
+      Carrito
+      @if (carrito.cantidadTotal()) {
+        <span class="navbar__badge">{{ carrito.cantidadTotal() }}</span>
+      }
+    </a>
+    @if (auth.isAuthenticated()) {
+      <a routerLink="/pedidos/mios" routerLinkActive="is-active">Mis pedidos</a>
+    }
+    @if (auth.hasRole('Admin')) {
+      <a routerLink="/admin/productos" routerLinkActive="is-active">Administración</a>
+    }
+  </div>
+
+  <div class="navbar__account">
+    @if (auth.isAuthenticated()) {
+      <span class="navbar__user">
+        {{ auth.displayName() }}
+        @if (auth.roles().length) {
+          <small>({{ auth.roles().join(', ') }})</small>
+        }
+      </span>
+      <button type="button" (click)="logout()">Cerrar sesión</button>
+    } @else {
+      <button type="button" (click)="login()">Iniciar sesión</button>
+      <button type="button" (click)="loginCreateAccount()">Crear cuenta</button>
+    }
+  </div>
+</nav>

@@ -1,0 +1,40 @@
+.mensaje-error {
+  color: #991b1b;
+}
+
+.pedidos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pedidos-tabla th,
+.pedidos-tabla td {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Los nombres de estado vienen en mayúsculas desde el enum de ms-pedidos. */
+.estado {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.estado--PAGADO {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.estado--ENVIADO {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.estado--CANCELADO {
+  background: #fee2e2;
+  color: #991b1b;
+}
